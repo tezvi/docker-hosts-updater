@@ -1,0 +1,17 @@
+[Unit]
+Description=Update Docker containers in /etc/hosts
+Requires=docker.service
+After=docker.service
+PartOf=docker.service
+
+[Service]
+Type=simple
+Restart=on-failure
+Environment="PYTHONUNBUFFERED=1"
+# Ensure logs go to journald
+StandardOutput=syslog
+StandardError=syslog
+ExecStart=/opt/docker-update-hosts/docker-update-hosts
+
+[Install]
+WantedBy=docker.service
