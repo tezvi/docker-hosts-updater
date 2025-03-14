@@ -8,10 +8,9 @@ PartOf=docker.service
 Type=simple
 Restart=on-failure
 Environment="PYTHONUNBUFFERED=1"
-# Ensure logs go to journald
-StandardOutput=syslog
-StandardError=syslog
-ExecStart=/opt/docker-update-hosts/docker-update-hosts
+StandardOutput=append:/var/log/docker-update-hosts.log
+StandardError=append:/var/log/docker-update-hosts.log
+ExecStart=/opt/docker-update-hosts/docker-update-hosts --log-level DEBUG
 
 [Install]
 WantedBy=docker.service
